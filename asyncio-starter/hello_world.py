@@ -3,17 +3,18 @@ import asyncio
 
 async def say_hello():
     """
-    This function shows how to use the `async` and `await` keywords to
-    create an asynchronous function.
+    Demonstrates how to use the `async` and `await` keywords to create an asynchronous function.
 
-    The `asyncio.run()` function is used
-    to run the asynchronous function
+    - The `async` keyword defines this function as a coroutine, which can be paused and resumed.
+    - The `await` keyword pauses the execution of this coroutine until the awaited operation (e.g., `asyncio.sleep`) completes.
 
-    The fact that world prints right after sleep means that this sleep is
-    not blocking the function from continuing to execute.
+    Note:
+    - The `await asyncio.sleep(3)` simulates an asynchronous wait but only blocks this coroutine,
+      not the entire event loop. If there are other tasks running concurrently, they can continue
+      executing while this coroutine is paused.
     """
     print("Hello...")
-    await asyncio.sleep(3)  # Simulates waiting (e.g., network call)
+    await asyncio.sleep(3)
     print("...World!")
 
 
