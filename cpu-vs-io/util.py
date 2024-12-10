@@ -13,7 +13,6 @@ def measure_time(func):
     @wraps(func)
     def wrapper(*args, **kwargs):
         start = time.perf_counter()
-        # breakpoint()
         if asyncio.iscoroutinefunction(func):
             result = asyncio.run(func(*args, **kwargs))
         else:
