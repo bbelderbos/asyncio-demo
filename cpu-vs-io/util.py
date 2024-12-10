@@ -1,7 +1,6 @@
-import time
-
 import asyncio
 from functools import wraps
+import time
 
 
 def measure_time(func):
@@ -9,7 +8,6 @@ def measure_time(func):
     A decorator to measure the execution time of a function or coroutine.
     Automatically detects whether the target is synchronous or asynchronous.
     """
-
     @wraps(func)
     def wrapper(*args, **kwargs):
         start = time.perf_counter()
