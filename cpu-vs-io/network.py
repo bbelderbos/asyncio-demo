@@ -3,8 +3,8 @@ Similar as prior demo, but now we use `asyncio.gather` to fetch all URLs concurr
 """
 import asyncio
 
-# for demo, might want to use `aiohttp` or `httpx` ...
-import requests
+import requests  # blocking library
+import aiohttp
 
 from util import measure_time
 
@@ -41,3 +41,16 @@ async def async_network_io():
     tasks = [_async_fetch_url(url) for url in urls]
     responses = await asyncio.gather(*tasks)
     return [len(response.content) for response in responses]
+
+
+async def _aiohttp_fetch_url(session, url):
+    async with session.get(url) as response:
+        return await response.text()
+
+
+@measure_time
+async def async_aiohttp():
+    async with aiohttp.ClientSession() as session:
+        tasks = [_aiohttp_fetch_url(session, url) for url in urls]
+        responses = await asyncio.gather(*tasks)
+        return [len(response) for response in responses]
